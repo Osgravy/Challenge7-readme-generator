@@ -12,7 +12,7 @@ const questions = [
     {
         type: 'input',
         name: 'description',
-        message: 'Please provide a short description of your project.',
+        message: 'Describe your project.',
     },
     {
         type: 'input',
@@ -22,17 +22,17 @@ const questions = [
     {
         type: 'input',
         name: 'usage',
-        message: 'What is the usage information?',
+        message: 'What is the usage information for this project?',
     },
     {
         type: 'input',
         name: 'contribution',
-        message: 'What are the contribution guidelines?',
+        message: 'What are the guidlines for contribution?',
     },
     {
         type: 'input',
         name: 'tests',
-        message: 'What are the test instructions?',
+        message: 'What are the instructions for testing?',
     },
     {
         type: 'list',
@@ -57,7 +57,7 @@ function writeToFile(fileName, data) {
     const content = `
 # ${data.title}
 
-${renderLicenseBadge(data.license)}
+${licenseLink(data.license)}
 
 ## Description
 
@@ -89,7 +89,7 @@ ${data.tests}
 
 ## License
 
-${renderLicenseSection(data.license)}
+${isLicensed(data.license)}
 
 ## Questions
 
@@ -99,7 +99,7 @@ You can also find my GitHub profile here [${data.github}](https://github.com/${d
 
     fs.writeFile(fileName, content, (err) => {
         if (err) {
-            console.error('Error writing file:', err);
+            console.error('Error writing README:', err);
         } else {
             console.log('README file created successfully!');
         }
@@ -107,7 +107,7 @@ You can also find my GitHub profile here [${data.github}](https://github.com/${d
 }
 
 // Function to render license badge
-function renderLicenseBadge(license) {
+function licenseLink(license) {
     if (license === 'None') {
         return '';
     }
@@ -115,7 +115,7 @@ function renderLicenseBadge(license) {
 }
 
 // Function to render license section
-function renderLicenseSection(license) {
+function isLicensed(license) {
     if (license === 'None') {
         return 'This project is not licensed.';
     }
